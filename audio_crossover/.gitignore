@@ -1,0 +1,8 @@
+simulation/
+.log
+.area
+.db
+.timing
+.tsm
+.bak
+
