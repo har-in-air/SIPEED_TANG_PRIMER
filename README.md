@@ -15,5 +15,4 @@
 
 
 <img src = "tang_primer_pinout.png" />
-<img src = "" />
-<img src = "" />
+
