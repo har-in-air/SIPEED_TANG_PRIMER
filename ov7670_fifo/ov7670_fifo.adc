@@ -1,0 +1,49 @@
+set_pin_assignment	{ i_clk_24m }	{ LOCATION = K14; IOSTANDARD = LVTTL33; }
+set_pin_assignment	{ i_rstn }	{ LOCATION = K16; IOSTANDARD = LVTTL33; }
+
+set_pin_assignment	{ i_btn }	{ LOCATION = M12; IOSTANDARD = LVTTL33; }
+
+set_pin_assignment	{ i_rxd }	{ LOCATION = A14; IOSTANDARD = LVTTL33; }
+set_pin_assignment	{ o_txd }	{ LOCATION = B14; IOSTANDARD = LVTTL33; }
+
+set_pin_assignment	{ o_ledb }	{ LOCATION = J14; IOSTANDARD = LVTTL33; }
+set_pin_assignment	{ o_ledg }	{ LOCATION = P13; IOSTANDARD = LVTTL33; }
+set_pin_assignment	{ o_ledr }	{ LOCATION = R3; IOSTANDARD = LVTTL33; }
+
+
+#fifo read data interface
+set_pin_assignment {i_fifo_data[0]} { LOCATION = L16; }
+set_pin_assignment {i_fifo_data[1]} { LOCATION = L14; }
+set_pin_assignment {i_fifo_data[2]} { LOCATION = M14; }
+set_pin_assignment {i_fifo_data[3]} { LOCATION = M16; }
+set_pin_assignment {i_fifo_data[4]} { LOCATION = M15; }
+set_pin_assignment {i_fifo_data[5]} { LOCATION = K15; }
+set_pin_assignment {i_fifo_data[6]} { LOCATION = H16; }
+set_pin_assignment {i_fifo_data[7]} { LOCATION = G16; }
+
+#set_pin_assignment {i_csi_pclk} { LOCATION = K12; }
+#set_pin_assignment {o_csi_xclk} { LOCATION = J12; }
+
+#camera generated signals
+set_pin_assignment {i_csi_href} { LOCATION = H15; }
+set_pin_assignment {i_csi_vsync} { LOCATION = F15; }
+
+# fifo control interface
+set_pin_assignment {o_fifo_rck} { LOCATION = P15; }	# D0 on connector
+set_pin_assignment {o_fifo_wen}   { LOCATION = P16; }	# D1 on connector
+set_pin_assignment {o_fifo_rrstn} { LOCATION = G14; } 
+set_pin_assignment {o_fifo_rstn} { LOCATION = E15; }
+
+#camera configuration sccb bus
+set_pin_assignment {o_csi_soic} { LOCATION = D16; }
+set_pin_assignment {io_csi_soid} { LOCATION = D14; }
+
+#set_pin_assignment {o_csi_soic} { LOCATION = R16;  IOSTANDARD = LVTTL33;}
+#set_pin_assignment {io_csi_soid} { LOCATION = M12; IOSTANDARD = LVTTL33;}
+
+set_pin_assignment {o_dbg0} { LOCATION = N12;  IOSTANDARD = LVTTL33;}
+set_pin_assignment {o_dbg1} { LOCATION = P12; IOSTANDARD = LVTTL33;}
+set_pin_assignment {o_dbg2} { LOCATION = N11;  IOSTANDARD = LVTTL33;}
+
+
+

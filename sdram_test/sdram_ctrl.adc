@@ -1,0 +1,4 @@
+set_pin_assignment	{ i_clk_24m }	{ LOCATION = K14; IOSTANDARD = LVTTL33; }
+set_pin_assignment	{ i_rstn }	{ LOCATION = K16; IOSTANDARD = LVTTL33; }
+set_pin_assignment	{ i_rxd }	{ LOCATION = A14; IOSTANDARD = LVTTL33; }
+set_pin_assignment	{ o_txd }	{ LOCATION = B14; IOSTANDARD = LVTTL33; }
