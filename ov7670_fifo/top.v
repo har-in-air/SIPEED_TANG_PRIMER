@@ -1,7 +1,6 @@
 module top (
 	input wire i_clk_24m, 
 	input wire i_rstn,
-	input wire i_btn,
 	 
 	// uart
 	input wire i_rxd, 
@@ -24,12 +23,7 @@ module top (
 	input wire  i_csi_href,
 	input wire  i_csi_vsync,
 	output wire o_csi_soic,
-	inout wire  io_csi_soid,
-	
-	//debug
-	output o_dbg0,
-	output o_dbg1,
-	output o_dbg2
+	inout wire  io_csi_soid
 	);
 
 // uart wires
@@ -40,7 +34,6 @@ wire rx_done;
 wire tx_done;
 wire tx_en;
 
-wire cam_config_start;
 wire cam_config_done;
 
 wire fifo_capture_start;
@@ -55,21 +48,13 @@ assign o_ledr = ~fifo_busy; // on when busy
 assign o_ledg = ~cam_config_done; // on when camera config complete
 assign o_ledb = 1'b1; // off
 
-debounce inst_debounce(
-    .i_clk(i_clk_24m),
-    .i_btn_n(~i_btn), // debouncer expects active low button press
-    .o_btn_1pulse(cam_config_start)
-    );
-    
 OV7670_config inst_OV7670_config(
     .i_clk(i_clk_24m),          
     .i_rstn(i_rstn),
-    .i_config_start(cam_config_start),            
     .o_config_done(cam_config_done),  
     .o_soic(o_csi_soic),       
     .io_soid(io_csi_soid),     
-    .o_reset(o_fifo_rstn),  
-    .o_dbg_wr_done(o_dbg2)
+    .o_reset(o_fifo_rstn)
   );  
 
 uart_rx inst_uart_rx (

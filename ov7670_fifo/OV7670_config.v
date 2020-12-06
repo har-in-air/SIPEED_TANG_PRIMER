@@ -1,29 +1,27 @@
-// Engineer: Mike Field <hamster@snap.net.nz>
-// 
-// Description: Controller for the OV760 camera - configure registers 
-//              using SCCB (i2c ) bus
-// Translated to Verilog with some modifications : HN
-
 module OV7670_config (
     input wire i_clk,            
     input wire i_rstn,                
-    input wire i_config_start,                           
-    output wire o_config_done,                 
+    output reg o_config_done,                 
     output wire o_soic,                          
     inout wire io_soid,                           
-    output wire o_reset,                         
-    output wire o_dbg_wr_done                           
+    output wire o_reset                         
     );
 
+localparam [2:0]
+	fsm_idle = 3'd0,
+	fsm_wr = 3'd1,
+	fsm_wr_ack = 3'd2,
+	fsm_config_done = 3'd3;
+
+reg [2:0] fsm_state = fsm_wr;	
+reg [5:0] reg_index = 6'd0;
+wire  wr_en;
+
 wire [15:0] reg_addr_data;
-
 wire wr_done;
-wire wr_en;
-
+	
 assign o_reset = i_rstn;
-
-assign wr_en = ~o_config_done;
-assign o_dbg_wr_done = wr_done;
+assign wr_en = (fsm_state != fsm_config_done);
 
 I2C_interface inst_I2C_interface(
     .i_clk(i_clk),
@@ -39,12 +37,39 @@ I2C_interface inst_I2C_interface(
 // LUT for OV7670 register addresses and data values
 OV7670_registers inst_OV7670_registers(
     .i_clk(i_clk),        
-    .i_rstn(i_rstn),                
-    .i_config_start(i_config_start), // 1-clock pulse to configure the registers
-    .i_next_reg(wr_done), // get next register address and data           
-    .o_addr_data(reg_addr_data),
-    .o_config_done(o_config_done) // finished configuration of all registers
+    .i_reg_index(reg_index),                
+    .o_addr_data(reg_addr_data)
     );
 
+always @(posedge i_clk)
+begin
+	if (~i_rstn)
+		begin
+		o_config_done <= 0;
+		reg_index <= 6'd0;
+	    fsm_state <= fsm_wr;
+		end
+	else
+	begin
+	case (fsm_state)
+	fsm_wr :
+		fsm_state <= (reg_index == 6'd42) ? fsm_config_done : fsm_wr_ack;
+		
+	fsm_wr_ack:
+		begin
+		if (wr_done)
+		    begin
+   			reg_index <= reg_index + 6'd1;
+   			fsm_state <= fsm_wr;
+    		end
+		end
 
+	fsm_config_done : o_config_done <= 1;
+
+	default : ;
+	
+	endcase
+	end
+			
+end    
 endmodule

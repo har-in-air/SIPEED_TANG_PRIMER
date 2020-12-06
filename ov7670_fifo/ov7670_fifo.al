@@ -16,7 +16,6 @@
             <File>uart_tx.v</File>
             <File>OV7670_config.v</File>
             <File>OV7670_registers.v</File>
-            <File>debounce.v</File>
             <File>I2C_interface.v</File>
             <File>fifo_capture.v</File>
         </Verilog>
@@ -30,7 +29,7 @@
         <CREATEINDEX>auto</CREATEINDEX>
     </TOP_MODULE>
     <Project_Settings>
-        <Step_Last_Change>2020-12-04 14:18:52</Step_Last_Change>
+        <Step_Last_Change>2020-12-06 21:46:56</Step_Last_Change>
         <Current_Step>60</Current_Step>
         <Step_Status>true</Step_Status>
     </Project_Settings>
